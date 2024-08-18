@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-const MyReservation = () => {
+const MyReservationPage = () => {
     return (
         <main className="max-w-[1500px] mx-auto px-6">
             <h1 className='mt-6 mb-12 text-3xl'>My reservations</h1>
@@ -60,4 +60,4 @@ const MyReservation = () => {
     )
 }
 
-export default MyReservation
+export default MyReservationPage

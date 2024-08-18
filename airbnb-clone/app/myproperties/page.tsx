@@ -1,8 +1,7 @@
-import Image from 'next/image'
 import PropertyList from '../components/properties/PropertyList'
 
 
-const MyReservation = () => {
+const MyPropertiesPage= () => {
     return (
         <main className="max-w-[1500px] mx-auto px-6">
             <h1 className='mt-6 mb-12 text-3xl'>My properties</h1>
@@ -14,4 +13,4 @@ const MyReservation = () => {
     )
 }
 
-export default MyReservation;
+export default MyPropertiesPage;
