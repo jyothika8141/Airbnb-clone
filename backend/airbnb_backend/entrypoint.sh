@@ -12,6 +12,7 @@ if [ "$DATABASE" = "postgres" ]; then
 fi
 
 # Run Django migrations
+python manage.py makemigrations
 python manage.py migrate
 
 # Execute the CMD from Dockerfile
