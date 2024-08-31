@@ -16,20 +16,10 @@ const PropertyList = () => {
     const [properties, setProperties] = useState<PropertyType[]>([]);
 
     const getProperties = async () => {
-        const url = 'http://localhost:8000/api/properties';
-        
-        await fetch(url, {
-            method: 'GET', 
-        })
-            .then(response => response.json())
-            .then((json) =>{
-                console.log('json', json);
+        const url = '/api/properties/';
+        const temProperties = await apiService.get(url);
 
-                setProperties(json.data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        setProperties(temProperties.data);
     };
 
     useEffect(() => {
