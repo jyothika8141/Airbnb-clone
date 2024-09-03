@@ -34,3 +34,8 @@ export async function getUserId() {
     const userId = cookies().get('user_id')?.value;
     return userId ? userId : null;
 }
+
+export async function getAccessToken() {
+    let accessToken = cookies().get('access_token')?.value;
+    return accessToken ? accessToken : null;
+}

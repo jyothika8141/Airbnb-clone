@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
-
+from .forms import PropertyForm
 from .models import Property
 from .serializers import PropertiesListSerializer
 
@@ -20,3 +20,17 @@ def properties_list(request):
     return JsonResponse({
         "data": serializer.data
     })
+
+
+@api_view(['POST', 'FILES'])
+def create_property(request):
+    print("in post api")
+    form = PropertyForm(request.POST, request.FILES)
+    if form.is_valid():
+        property = form.save(commit=False)
+        property.landlord = request.user
+        property.save()
+        return JsonResponse({'data': 'Property created successfully'})
+    else:
+        print('error', form.errors, form.non_field_errors)
+        return JsonResponse({'errors': form.errors.as_json()}, status=400)
