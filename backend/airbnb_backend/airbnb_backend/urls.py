@@ -3,9 +3,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+print("here1")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('api/properties/', include('property.urls')),
     path('api/auth/', include('useraccount.urls')),
 
