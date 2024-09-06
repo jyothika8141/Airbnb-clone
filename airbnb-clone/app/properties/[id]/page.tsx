@@ -1,9 +1,9 @@
 import ReservationSidebar from "@/app/components/properties/ReservationSidebar"
 import Image from "next/image"
+import Link from "next/link"
 
 import apiService from "@/app/services/apiService"
 import { getUserId } from "@/app/lib/actions"
-import { getRedirectStatusCodeFromError } from "next/dist/client/components/redirect"
 
 const PropertyDetailsPage = async ({params}: {params: {id: string }}) => {
     const property = await apiService.get(`/api/properties/${params.id}`);
@@ -14,7 +14,7 @@ const PropertyDetailsPage = async ({params}: {params: {id: string }}) => {
         <div className="w-full h-[64vh] overflow-hidden rounded-xl relative">
             <Image 
                 fill
-                src="/beach1.jpeg"
+                src={`http://localhost:8000${property.image}`}
                 className="object-cover w-full h-full"
                 alt="Beach house"
             />
@@ -31,7 +31,10 @@ const PropertyDetailsPage = async ({params}: {params: {id: string }}) => {
                 </span>
                 <hr className="mt-4" />
 
-                <div className="py-4 flex items-center space-x-4">
+                <Link 
+                    href={`/landlords/${property.landlord.id}`}
+                    className="py-4 flex items-center space-x-4"
+                >
                     {property.landlord.avatar && (
                         <Image 
                             src={property.landlord.avatar}
@@ -44,7 +47,7 @@ const PropertyDetailsPage = async ({params}: {params: {id: string }}) => {
 
                     <p className="text-2xl"><strong>{property.landlord.name}</strong> is your host</p>
 
-                </div>
+                </Link>
 
                 <hr />
 

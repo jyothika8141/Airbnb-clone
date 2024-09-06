@@ -14,11 +14,19 @@ from .serializers import PropertyDetailSerializer, ReservationListSerializer
 def properties_list(request):
     properties = Property.objects.all()
     serializer = PropertiesListSerializer(properties, many=True)
-    print(serializer.data)
+
+    #
+    # Filter
+    landloard_id = request.GET.get('landlord_id', '')
+    
+    if landloard_id :
+        properties = properties.filter(landlord_id=landloard_id)
 
     return JsonResponse({
         "data": serializer.data
     })
+    #
+    #
 
 @api_view(['GET'])
 @authentication_classes([])

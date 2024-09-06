@@ -12,11 +12,25 @@ export type PropertyType = {
     image: string 
 }
 
-const PropertyList = () => {
+interface PropertyListProps {
+    landlord_id: string | null;
+}
+
+const PropertyList: React.FC<PropertyListProps> = ({
+    landlord_id
+}) => {
     const [properties, setProperties] = useState<PropertyType[]>([]);
 
     const getProperties = async () => {
-        const url = '/api/properties/';
+        console.log("i am here in landlord page");
+        let url = `/api/properties/`;
+
+        if (landlord_id) {
+            url += `?landlord_id=${landlord_id}`;
+        }
+
+        console.log("url:", url);
+    
         const temProperties = await apiService.get(url);
 
         setProperties(temProperties.data);
