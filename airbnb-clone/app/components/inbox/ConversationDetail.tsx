@@ -20,7 +20,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     messages,
     conversation
 }) => {
-    const messagesDiv = useRef(null);
+    const messagesDiv = useRef<HTMLDivElement>(null);
     const [newMessage, setNewMessage] = useState("");
     const myUser = conversation.participants?.find((user) => user.id === userId);
     const otherUser = conversation.participants?.find((user) => user.id !== userId);
@@ -65,7 +65,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
 
         setNewMessage("");
         setTimeout(() => {
-            // scrollToBottom();
+            scrollToBottom();
         }, 50)
     }
 

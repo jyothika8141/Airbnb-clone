@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view
 from .models import Conversation, ConversationMessage
 from .serializers import ConversationListSerializer, ConversationDetailSerializer, ConversationMessageSerializer
 
+from useraccount.models import User
+
 @api_view(['GET'])
 def conversations_list(request):
     serializer = ConversationListSerializer(request.user.conversations.all(), many=True)
@@ -25,6 +27,22 @@ def conversation_detail(request, pk):
         'messages': message_serializer.data
     }, safe=False)
 
+
+@api_view(['GET'])
+def conversation_start(request, user_id):
+    conversations = Conversation.objects.filter(participants__in=[user_id]).filter(participants__in=[request.user.id])
+    
+    if conversations.count() > 0:
+        conversation = conversations.first()
+        return JsonResponse({
+            'success': True,
+            'conversation_id': conversation.id
+        }, safe=False)
+    else:
+        user = User.objects.get(pk=user_id)
+        conversation = Conversation.objects.create()
+        conversation.participants.add(request.user)
+        conversation.participants.add(user)
 
 
 
