@@ -1,5 +1,4 @@
 import apiService from "../services/apiService";
-import { useState, useEffect } from "react";
 import Conversation from "../components/inbox/Conversation";
 import { getUserId } from "../lib/actions";
 
@@ -16,7 +15,6 @@ export type ConversationType = {
 
 const InboxPage = async () => {
     const userId = await getUserId();
-    console.log("userIDdd: ", userId);
 
     if (!userId) {
         return (
@@ -35,9 +33,8 @@ const InboxPage = async () => {
 
             {conversations.map((conversation: ConversationType) => {
                 return (
-                    <Conversation 
+                    <Conversation
                         userId={userId}
-                        key={conversation.id}
                         conversation={conversation}
                     />
                 )

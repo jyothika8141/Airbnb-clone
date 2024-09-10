@@ -20,6 +20,13 @@ AUTH_USER_MODEL = 'useraccount.User'
 
 SITE_ID = 1
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
@@ -64,6 +71,8 @@ REST_AUTH = {
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,7 +127,10 @@ TEMPLATES = [
     },
 ]
 
+#ENTRY POINT FOR DJANGO HTTP & HTTPS
 WSGI_APPLICATION = 'airbnb_backend.wsgi.application'
+#ENTRY POINT FOR DJANGO WEBSOCKETS
+ASGI_APPLICATION = 'airbnb_backend.asgi.application'
 
 
 # Database

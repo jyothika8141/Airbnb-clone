@@ -12,14 +12,9 @@ const Conversation: React.FC<ConversationProps> = ({
     conversation, 
     userId,
 }) => {
-    // console.log("conversation:");
-    // console.log(conversation.participants);
     const router = useRouter();
     const otherUser = conversation.participants.find((user) => user.id !== userId);
    
-
-    console.log("otherUser:");
-    console.log(otherUser);
 
     if (!otherUser) {
         // Handle the case where otherUser is not found
@@ -33,6 +28,7 @@ const Conversation: React.FC<ConversationProps> = ({
 
             <p 
                 onClick={() => router.push(`/inbox/${conversation.id}`)}
+                // onClick={() => console.log("testing...")}
                 className="text-airbnbDark">Go to Conversation
             </p>
         </div>
