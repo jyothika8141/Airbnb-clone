@@ -13,20 +13,48 @@ from .serializers import PropertyDetailSerializer, ReservationListSerializer
 
 def properties_list(request):
     properties = Property.objects.all()
+
+    # Filter parameters
+    landlord_id = request.GET.get('landlord_id', '')
+    country = request.GET.get('country', '')
+    category = request.GET.get('category', '')
+    checkin_date = request.GET.get('checkin', '')
+    checkout_date = request.GET.get('checkout', '')
+    bedrooms = request.GET.get('numBedrooms', '')
+    guests = request.GET.get('numGuests', '')
+    bathrooms = request.GET.get('numBathrooms', '')
+
+    if checkin_date and checkout_date:
+        matches = Reservation.objects.filter(
+            start_date__lt=checkout_date, 
+            end_date__gt=checkin_date
+        )
+        matches_array = [match.property_id for match in matches]
+        properties = properties.exclude(id__in=matches_array)
+
+    if landlord_id:
+        properties = properties.filter(landlord_id=landlord_id)
+
+    if guests:
+        properties = properties.filter(guests__gte=int(guests))
+
+    if bedrooms:
+        properties = properties.filter(bedrooms__gte=int(bedrooms))
+
+    if bathrooms:
+        properties = properties.filter(bathrooms__gte=int(bathrooms))
+
+    if country:
+        properties = properties.filter(country=country)
+
+    if category:
+        properties = properties.filter(category=category)
+
     serializer = PropertiesListSerializer(properties, many=True)
-
-    #
-    # Filter
-    landloard_id = request.GET.get('landlord_id', '')
-    
-    if landloard_id :
-        properties = properties.filter(landlord_id=landloard_id)
-
     return JsonResponse({
         "data": serializer.data
     })
-    #
-    #
+
 
 @api_view(['GET'])
 @authentication_classes([])
