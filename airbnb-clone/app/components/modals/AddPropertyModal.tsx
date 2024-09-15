@@ -67,10 +67,10 @@ const AddPropertyModal = () => {
             console.log("in here")
             const response = await apiService.postWithToken('/api/properties/create/', formData);
             
-            if (response.success) {
+            if (response.data === 'Property created successfully') {
                 console.log('Property added successfully');
 
-                router.push('/');
+                router.push('/?added=true');
 
                 addPropertyModal.close();
             }else {
@@ -143,7 +143,7 @@ const AddPropertyModal = () => {
                 </>
             ) : currentStep == 3 ? (
                 <>
-                    <h2 className="mb-4 text-2xl"> Describe your  place</h2> 
+                    <h2 className="mb-4 text-2xl"> Describe your place</h2> 
 
                     <div className="pt-3 pb-6 space-y-4">
                         <div className="flex flex-col space-y-2">
