@@ -10,7 +10,7 @@ const Custombutton: React.FC<CustomButtonProps> = ({
     return(
         <div 
             onClick={onClick}
-            className="inline-block px-3 py-2 bg-airbnb hover:bg-airbnbDark transition text-white rounded-lg cursor-pointer"
+            className="inline-block mr-4 px-3 py-2 bg-airbnb hover:bg-airbnbDark transition text-white rounded-lg cursor-pointer"
         >
             {label}
         </div>
