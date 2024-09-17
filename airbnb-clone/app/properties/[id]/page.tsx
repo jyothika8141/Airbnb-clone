@@ -25,7 +25,7 @@ const PropertyDetailsPage = async ({params}: {params: {id: string }}) => {
                 <h1 className="mb-4 text-4xl">{property.title}</h1>
 
                 <span className="mb-6 text-lg text-gray-600">
-                {property.guests} guests - {property.bedrooms} bedrooms - {property.bathroom} bathroom
+                {property.guests} guests - {property.bedrooms} bedrooms - {property.bathrooms} bathroom
 
                     
                 </span>
